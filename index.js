@@ -1,20 +1,27 @@
 require("dotenv").config();
 require("express-async-errors");
+
+// extra security package
+
 const connect = require("./db/connect");
+const auth = require("./middlewares/auth");
 const errorHandler = require("./middlewares/errorHandler");
 const notFound = require("./middlewares/notFound");
+
 const express = require("express");
 const server = express();
 // router
 const jobsRouter = require("./routes/jobs_routes");
 const authRouter = require("./routes/auth_routes");
 
+// middleware
+server.use(express.json());
+
 // routes
 server.use("/api/v1/auth/", authRouter);
-server.use("/api/v1/jobs/", jobsRouter);
+server.use("/api/v1/jobs/", auth, jobsRouter);
 
 // middlewares
-server.use(express.json());
 
 // error handler middleware
 server.use(notFound);
