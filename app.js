@@ -38,7 +38,7 @@ server.use(cors());
 server.use(xss());
 
 server.get("/", (req, res) => {
-  res.send("Jobs API");
+  res.send('<h1>Jobs API</h1><a href="/api-docs">Documentation</a>');
 });
 
 server.use("/api-docs", swaggerUI.serve, swaggerUI.setup(swaggerDocument));
