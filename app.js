@@ -19,8 +19,8 @@ const jobsRouter = require("./routes/jobs_routes");
 const authRouter = require("./routes/auth_routes");
 
 // middleware
-app.set("trust proxy", 1);
-app.use(
+server.set("trust proxy", 1);
+server.use(
   rateLimiter({
     windowMs: 15 * 60 * 1000, // 15 minutes
     max: 100, // limit each IP to 100 requests per windowMs
@@ -28,9 +28,9 @@ app.use(
 );
 
 server.use(express.json());
-app.use(helmet());
-app.use(cors());
-app.use(xss());
+server.use(helmet());
+server.use(cors());
+server.use(xss());
 
 server.get("/", (req, res) => {
   res.send("Jobs API");
